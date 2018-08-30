@@ -20,6 +20,7 @@ class CreateReservationsTable extends Migration
             $table->integer('status');
             $table->dateTime('from');
             $table->dateTime('to');
+            $table->decimal('total_cost');
             $table->string('contract_url')->nullable();
             $table->timestamps();
         });
