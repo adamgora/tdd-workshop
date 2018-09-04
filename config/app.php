@@ -211,4 +211,9 @@ return [
 
     ],
 
+    /**
+     * Setting faker locale
+     */
+    'faker_locale' => 'pl_PL',
+
 ];
