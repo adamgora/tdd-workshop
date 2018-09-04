@@ -12,7 +12,8 @@ class UsersSeeder extends Seeder
     public function run()
     {
         factory('App\User')->create([
-            'name' => 'admin'
+            'name' => 'admin',
+            'email' => 'admin@admin'
         ]);
     }
 }
