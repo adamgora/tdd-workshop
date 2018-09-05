@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card">
+    <a href="{{ route('reservations.create') }}" class="btn btn-success">Utwórz rezerwację</a>
+    <div class="card mt-3 mb-3">
         <div class="card-header">
             Jan Kowalski - SC 000AA
         </div>
