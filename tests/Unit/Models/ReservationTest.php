@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Car;
 use App\Customer;
 use App\Reservation;
 use Tests\TestCase;
@@ -26,5 +27,13 @@ class ReservationTest extends TestCase
         //then a reservation should belong to a customer
         $this->assertNotNull($this->reservation->customer);
         $this->assertInstanceOf(Customer::class, $this->reservation->customer);
+    }
+
+    public function testShouldReservationBelongToACar()
+    {
+        //given we have a reservation
+        //then a reservation should belong to a customer
+        $this->assertNotNull($this->reservation->car);
+        $this->assertInstanceOf(Car::class, $this->reservation->car);
     }
 }

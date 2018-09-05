@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Reservations;
 
+use App\Reservation;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -28,5 +29,18 @@ class ViewingReservations extends TestCase
         $this->get(route('reservations.index'))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
+    }
+
+    public function testShouldDisplayReservationsFromDatabase()
+    {
+        //given we have a reservation
+        $this->signIn();
+        $reservation = create(Reservation::class);
+
+        //when we vistit index page
+        //then response should contain reservation details
+        $this->get(route('reservations.index'))
+            ->assertSee($reservation->customer->name)
+            ->assertSee($reservation->car->registration_number);
     }
 }

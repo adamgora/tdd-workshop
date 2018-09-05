@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
@@ -23,6 +24,7 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        return view('reservations.index');
+        $reservations = Reservation::with(['customer', 'car'])->get();
+        return view('reservations.index', compact('reservations'));
     }
 }
