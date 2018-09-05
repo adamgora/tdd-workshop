@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <a href="{{ route('reservations.create') }}" class="btn btn-success">Utwórz rezerwację</a>
     @foreach($reservations as $reservation)
-        <div class="card">
+        <div class="card mt-3 mb-3">
             <div class="card-header">
                 {{$reservation->customer->name}} - {{$reservation->car->registration_number}}
             </div>

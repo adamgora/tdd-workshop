@@ -17,14 +17,14 @@ class ReservationsController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $reservations = Reservation::with(['customer', 'car'])->get();
         return view('reservations.index', compact('reservations'));
+    }
+
+    public function create()
+    {
+        return view('reservations.create');
     }
 }

@@ -14,3 +14,4 @@
 Auth::routes();
 
 Route::get('/', 'ReservationsController@index')->name('reservations.index');
+Route::get('/reservations/create', 'ReservationsController@create')->name('reservations.create');
