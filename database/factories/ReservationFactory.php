@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(Reservation::class, function (Faker $faker) {
     return [
         'customer_id' => factory('App\Customer')->create()->id,
-        'car_id' => Car::all()->random()->id,
+        'car_id' => factory('App\Car')->create()->id,
         'status' => $faker->randomDigit(0, 3),
         'from' => $faker->dateTimeBetween('-2 days', 'now')->format('Y-m-d'),
         'to' => $faker->dateTimeBetween('now', '+2 days')->format('Y-m-d'),
