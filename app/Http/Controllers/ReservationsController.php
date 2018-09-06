@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
+use App\Customer;
 use App\Reservation;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,14 @@ class ReservationsController extends Controller
 
     public function create()
     {
-        return view('reservations.create');
+        $cars = Car::all();
+        $customers = Customer::all();
+        return view('reservations.create', compact(['cars', 'customers']));
+    }
+
+    public function store()
+    {
+        Reservation::create(request()->all());
+        return redirect(route('reservations.index'));
     }
 }
