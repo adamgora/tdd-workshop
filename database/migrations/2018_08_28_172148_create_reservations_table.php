@@ -17,7 +17,7 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->integer('customer_id');
             $table->integer('car_id');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->dateTime('from');
             $table->dateTime('to');
             $table->decimal('total_cost');
