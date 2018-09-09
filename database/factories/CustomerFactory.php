@@ -9,6 +9,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'street' => $faker->streetAddress,
         'city' => $faker->city,
         'zip' => $faker->postcode,
+        'email' => $faker->email,
         'driver_licence_number' => $faker->bothify('??####'),
     ];
 });

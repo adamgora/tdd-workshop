@@ -19,6 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('street');
             $table->string('city');
             $table->string('zip');
+            $table->string('email');
             $table->string('driver_licence_number');
             $table->timestamps();
         });
