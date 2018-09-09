@@ -27,13 +27,19 @@ class ReservationsController extends Controller
 
     public function create()
     {
-        $cars = Car::all();
-        $customers = Customer::all();
-        return view('reservations.create', compact(['cars', 'customers']));
+        return view('reservations.create', [
+            'cars' => Car::all(),
+            'customers' => Customer::all()
+        ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $validated = $this->validate($request, [
+           'car_id' => 'required|exists:cars,id',
+           'customer_id' => 'required|exists:customers,id',
+        ]);
+
         Reservation::create(request()->all());
         return redirect(route('reservations.index'));
     }

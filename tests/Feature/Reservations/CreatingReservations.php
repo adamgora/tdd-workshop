@@ -2,13 +2,22 @@
 
 namespace Tests\Feature\Reservations;
 
+use App\Car;
+use App\Customer;
 use App\Reservation;
+use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreatingReservations extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
 
     public function testShouldDisplayReservationsCreateViewToSignedInUser()
     {
@@ -47,5 +56,52 @@ class CreatingReservations extends TestCase
             ->assertSee($reservation->customer->name)
             ->assertSee($reservation->car->registration_number);
 
+    }
+
+    /**
+     * @dataProvider validationProvider
+     */
+    public function testShouldThrowValidationException($data)
+    {
+        $car = create(Car::class);
+        $customer = create(Customer::class);
+
+        $this->withExceptionHandling()->signIn();
+
+        //given a wrong data is posted
+        $this->post(route('reservations.store'), $data)
+            ->assertSessionHasErrors();
+    }
+
+    public function validationProvider()
+    {
+        return [
+            'car_id_doesnt_exist' => [
+                [
+                    'car_id' => 0,
+                    'customer_id' => 1,
+                    'from' => '2018-09-01 10:00:00',
+                    'to' => '2018-09-01 11:00:00',
+                    'total_cost' => 100
+                ]
+            ],
+            'no_car_id_added' => [
+                [
+                    'customer_id' => 1,
+                    'from' => '2018-09-01 10:00:00',
+                    'to' => '2018-09-01 11:00:00',
+                    'total_cost' => 100
+                ]
+            ],
+            'invalid_customer_id' => [
+                [
+                    'car_id' => 1,
+                    'customer_id' => 999,
+                    'from' => '2018-09-01 10:00:00',
+                    'to' => '2018-09-01 11:00:00',
+                    'total_cost' => 100
+                ]
+            ],
+        ];
     }
 }
