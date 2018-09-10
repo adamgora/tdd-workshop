@@ -4,8 +4,10 @@ namespace Tests\Feature\Reservations;
 
 use App\Car;
 use App\Customer;
+use App\Mail\ReservationConfirmationEmail;
 use App\Reservation;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -63,14 +65,29 @@ class CreatingReservations extends TestCase
      */
     public function testShouldThrowValidationException($data)
     {
-        $car = create(Car::class);
-        $customer = create(Customer::class);
+        create(Car::class);
+        create(Customer::class);
 
         $this->withExceptionHandling()->signIn();
 
         //given a wrong data is posted
         $this->post(route('reservations.store'), $data)
             ->assertSessionHasErrors();
+    }
+
+    public function testShouldSendEmailToCustomerAfterReservationMade()
+    {
+        $this->signIn();
+        Mail::fake();
+
+        //given we have a reservation
+        $reservation = make(Reservation::class);
+
+        //when we make POST request to store reservation
+        $this->post(route('reservations.store'), $reservation->toArray());
+
+        //then an email should be send to the customer
+        Mail::assertSent(ReservationConfirmationEmail::class);
     }
 
     public function validationProvider()

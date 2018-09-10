@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use App\Customer;
+use App\Mail\ReservationConfirmationEmail;
 use App\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReservationsController extends Controller
 {
@@ -40,7 +42,9 @@ class ReservationsController extends Controller
            'customer_id' => 'required|exists:customers,id',
         ]);
 
-        Reservation::create(request()->all());
+        $reservation = Reservation::create(request()->all());
+
+        Mail::to($reservation->customer)->send(new ReservationConfirmationEmail($reservation));
         return redirect(route('reservations.index'));
     }
 }
