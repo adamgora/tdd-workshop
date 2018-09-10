@@ -5,7 +5,18 @@
     @foreach($reservations as $reservation)
         <div class="card mt-3 mb-3">
             <div class="card-header">
-                {{$reservation->customer->name}} - {{$reservation->car->registration_number}}
+                <div class="row">
+                    <div class="col">
+                        {{$reservation->customer->name}} - {{$reservation->car->registration_number}}
+                    </div>
+                    <div class="col text-right">
+                        <form method="POST" action="{{ route('reservations.delete', $reservation->id) }}">
+                            {{ @csrf_field()  }}
+                            {{ @method_field('DELETE') }}
+                            <button type="submit" class="btn btn-danger">Anuluj</button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">

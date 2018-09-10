@@ -47,4 +47,10 @@ class ReservationsController extends Controller
         Mail::to($reservation->customer)->send(new ReservationConfirmationEmail($reservation));
         return redirect(route('reservations.index'));
     }
+
+    public function delete(Reservation $reservation)
+    {
+        $reservation->delete();
+        return back();
+    }
 }

@@ -16,3 +16,4 @@ Auth::routes();
 Route::get('/', 'ReservationsController@index')->name('reservations.index');
 Route::get('/reservations/create', 'ReservationsController@create')->name('reservations.create');
 Route::post('/reservations/store', 'ReservationsController@store')->name('reservations.store');
+Route::delete('/reservations/{reservation}', 'ReservationsController@delete')->name('reservations.delete');
