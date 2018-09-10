@@ -9,13 +9,15 @@
                     <div class="col">
                         {{$reservation->customer->name}} - {{$reservation->car->registration_number}}
                     </div>
-                    <div class="col text-right">
-                        <form method="POST" action="{{ route('reservations.delete', $reservation->id) }}">
-                            {{ @csrf_field()  }}
-                            {{ @method_field('DELETE') }}
-                            <button type="submit" class="btn btn-danger">Anuluj</button>
-                        </form>
-                    </div>
+                    @can('delete', \App\Reservation::class)
+                        <div class="col text-right">
+                            <form method="POST" action="{{ route('reservations.delete', $reservation->id) }}">
+                                {{ @csrf_field()  }}
+                                {{ @method_field('DELETE') }}
+                                <button type="submit" class="btn btn-danger">Anuluj</button>
+                            </form>
+                        </div>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">

@@ -50,6 +50,7 @@ class ReservationsController extends Controller
 
     public function delete(Reservation $reservation)
     {
+        $this->authorize('delete', Reservation::class);
         $reservation->delete();
         return back();
     }

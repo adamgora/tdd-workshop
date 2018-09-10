@@ -13,7 +13,8 @@ class UsersSeeder extends Seeder
     {
         factory('App\User')->create([
             'name' => 'admin',
-            'email' => 'admin@admin'
+            'email' => 'admin@admin',
+            'is_admin' => true
         ]);
     }
 }
