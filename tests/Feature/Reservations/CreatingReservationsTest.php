@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class CreatingReservations extends TestCase
+class CreatingReservationsTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -35,6 +35,8 @@ class CreatingReservations extends TestCase
 
     public function testShouldRedirectUnauthorizedUsersToLoginPage()
     {
+        $this->withExceptionHandling();
+
         //when someone tries to make get request to index page
         //then he should be redirected to login page
         $this->get(route('reservations.create'))

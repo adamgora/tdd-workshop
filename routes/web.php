@@ -17,3 +17,6 @@ Route::get('/', 'ReservationsController@index')->name('reservations.index');
 Route::get('/reservations/create', 'ReservationsController@create')->name('reservations.create');
 Route::post('/reservations/store', 'ReservationsController@store')->name('reservations.store');
 Route::delete('/reservations/{reservation}', 'ReservationsController@delete')->name('reservations.delete');
+
+Route::get('/customers', 'CustomersController@index')->name('customers.index');
+Route::get('/customers/create', 'CustomersController@create')->name('customers.create');

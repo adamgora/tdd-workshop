@@ -6,7 +6,7 @@ use App\Reservation;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ViewingReservations extends TestCase
+class ViewingReservationsTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -24,6 +24,8 @@ class ViewingReservations extends TestCase
 
     public function testShouldRedirectUnauthorizedUsersToLoginPage()
     {
+        $this->withExceptionHandling();
+
         //when someone tries to make get request to index page
         //then he should be redirected to login page
         $this->get(route('reservations.index'))

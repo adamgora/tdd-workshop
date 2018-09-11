@@ -7,7 +7,7 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class DeletingReservations extends TestCase
+class DeletingReservationsTest extends TestCase
 {
     use DatabaseMigrations;
 
