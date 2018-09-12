@@ -60,11 +60,14 @@ class CreatingCustomersTest extends TestCase
 
         //when me make a POST request to create customer
         $customer = make(Customer::class)->toArray();
-        $file = UploadedFile::fake()->create('licence.pdf');
+        $file = UploadedFile::fake()->create('licence.pdf', '1024');
         $customer['driver_licence'] = $file;
-        $this->post(route('customers.store', $customer));
+
+        $this->json('post', route('customers.store'), $customer);
+
+        $storedCustomer = Customer::first();
 
         //then a driver licence scan should be uploaded
-        Storage::disk('public')->assertExists("licences/{$customer->id}/{$file->hashName()}");
+        Storage::disk('public')->assertExists("licences/{$storedCustomer->id}/{$file->hashName()}");
     }
 }

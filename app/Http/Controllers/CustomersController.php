@@ -27,7 +27,23 @@ class CustomersController extends Controller
 
     public function store()
     {
-        Customer::create(request()->all());
+        $customer = Customer::create(request()->only([
+            'name',
+            'street',
+            'city',
+            'zip',
+            'email',
+            'driver_licence_number'
+        ]));
+
+        $customer->update(
+            [
+                'driver_licence' => request()
+                    ->file('driver_licence')
+                    ->store("licences/{$customer->id}", 'public')
+            ]
+        );
+
         return redirect(route('customers.index'));
     }
 }
