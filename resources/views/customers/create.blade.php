@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="col-6 offset-3">
-        <form action="" method="POST">
-
+        <form action="{{ route('customers.store') }}" method="POST">
+            {{ @csrf_field() }}
             <div class="form-group">
                 <label for="from">Imię i nazwisko</label>
                 <input type="text" class="form-control" id="name" name="name">

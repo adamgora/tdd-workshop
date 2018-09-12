@@ -16,11 +16,6 @@ class CreatingReservationsTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     public function testShouldDisplayReservationsCreateViewToSignedInUser()
     {
         //given we have a signed in user

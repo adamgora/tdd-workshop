@@ -24,4 +24,10 @@ class CustomersController extends Controller
     {
         return view('customers.create');
     }
+
+    public function store()
+    {
+        Customer::create(request()->all());
+        return redirect(route('customers.index'));
+    }
 }

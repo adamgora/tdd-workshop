@@ -20,3 +20,4 @@ Route::delete('/reservations/{reservation}', 'ReservationsController@delete')->n
 
 Route::get('/customers', 'CustomersController@index')->name('customers.index');
 Route::get('/customers/create', 'CustomersController@create')->name('customers.create');
+Route::post('/customers', 'CustomersController@store')->name('customers.store');
