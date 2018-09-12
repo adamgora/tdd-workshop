@@ -4,6 +4,8 @@ namespace Tests\Feature\Customers;
 
 use App\Customer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CreatingCustomersTest extends TestCase
@@ -47,5 +49,22 @@ class CreatingCustomersTest extends TestCase
             ->assertRedirect(route('customers.index'));
 
         $this->assertEquals(1, Customer::all()->count());
+    }
+
+    public function testShouldAllowForDriverLicenceScanToBeUploaded()
+    {
+        Storage::fake('public');
+
+        //given we have a signed in user
+        $this->signIn();
+
+        //when me make a POST request to create customer
+        $customer = make(Customer::class)->toArray();
+        $file = UploadedFile::fake()->create('licence.pdf');
+        $customer['driver_licence'] = $file;
+        $this->post(route('customers.store', $customer));
+
+        //then a driver licence scan should be uploaded
+        Storage::disk('public')->assertExists("licences/{$customer->id}/{$file->hashName()}");
     }
 }

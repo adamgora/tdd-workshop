@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-6 offset-3">
-        <form action="{{ route('customers.store') }}" method="POST">
+        <form action="{{ route('customers.store') }}" enctype="multipart/form-data" method="POST">
             {{ @csrf_field() }}
             <div class="form-group">
                 <label for="from">Imię i nazwisko</label>
@@ -32,6 +32,11 @@
             <div class="form-group">
                 <label for="from">Seria i numer prawa jazdy</label>
                 <input type="text" class="form-control" id="driver_licence_number" name="driver_licence_number">
+            </div>
+
+            <div class="form-group">
+                <label for="driver_licence">Skan prawa jazdy</label>
+                <input type="file" class="form-control" id="driver_licence" name="driver_licence">
             </div>
 
             <div class="form-group text-center">
