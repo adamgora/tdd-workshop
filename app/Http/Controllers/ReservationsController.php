@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use App\Customer;
-use App\Mail\ReservationConfirmationEmail;
+use App\Http\Requests\Reservations\StoreRequest;
+use App\Http\Services\ReservationsService;
 use App\Reservation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ReservationsController extends Controller
 {
+    private $service;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param ReservationsService $service
      */
-    public function __construct()
+    public function __construct(ReservationsService $service)
     {
         $this->middleware('auth');
+        $this->service = $service;
     }
 
     public function index()
@@ -35,16 +37,9 @@ class ReservationsController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $storeRequest)
     {
-        $validated = $this->validate($request, [
-           'car_id' => 'required|exists:cars,id',
-           'customer_id' => 'required|exists:customers,id',
-        ]);
-
-        $reservation = Reservation::create(request()->all());
-
-        Mail::to($reservation->customer)->send(new ReservationConfirmationEmail($reservation));
+        $this->service->create(request()->all());
         return redirect(route('reservations.index'));
     }
 
