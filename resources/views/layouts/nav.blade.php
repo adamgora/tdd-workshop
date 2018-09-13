@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ '/reservations' }}">Rezerwacje</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ '/' }}">Rezerwacje</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ '/customers' }}">Klienci</a></li>
             </ul>
 
