@@ -36,13 +36,15 @@ class CustomersController extends Controller
             'driver_licence_number'
         ]));
 
-        $customer->update(
-            [
-                'driver_licence' => request()
-                    ->file('driver_licence')
-                    ->store("licences/{$customer->id}", 'public')
-            ]
-        );
+        if(request()->file()) {
+            $customer->update(
+                [
+                    'driver_licence' => request()
+                        ->file('driver_licence')
+                        ->store("licences/{$customer->id}", 'public')
+                ]
+            );
+        }
 
         return redirect(route('customers.index'));
     }
